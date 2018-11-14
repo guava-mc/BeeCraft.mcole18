@@ -4,21 +4,21 @@
  * 
  */
 
-package test;
+package test.java;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 /**
- * Description: TODO
+ * Description: TODO.
  * 
  * @author: mcole18
  * @version 1.0
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({})
+@SuiteClasses({DP1TODO.class})
 public class DPTestSuite {
 
 }
