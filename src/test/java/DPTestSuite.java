@@ -18,7 +18,7 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({DP1TODO.class})
+@SuiteClasses({SingletonTest.class})
 public class DPTestSuite {
 
 }
