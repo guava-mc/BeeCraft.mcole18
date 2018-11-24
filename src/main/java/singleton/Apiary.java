@@ -21,8 +21,12 @@ import main.java.Factory.Abstract_Hive;
  */
 public class Apiary {
     
+    private static final int _MAP_WIDTH = 500;
+    private static final int _MAP_HEIGHT = 500;
+    
     private static Apiary _instance;
     
+   
     private static boolean mutex = false;
     private static int ticks;
     private static HashMap<String,Abstract_Hive> _HIVES;
