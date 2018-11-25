@@ -57,9 +57,9 @@ public interface Bee_Flyweight extends Bee_Enums{
      * Description: Check destroyed hive's bee attributes
      * and adjust conquering hives's bee attributes
      * 
-     * @param bee - losing hive's bee stats
+     * @param baseStats - losing hive's bee stats
      */
-    public void HighLanderEffect(Bee_Flyweight bee);
+    public void HighLanderEffect(Bee_Flyweight baseStats);
         
     
 }

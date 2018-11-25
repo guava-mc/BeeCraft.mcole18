@@ -18,8 +18,8 @@ public class HoneyHive extends Beehive_Factory{
      * Constructor
      * @param t
      */
-    public HoneyHive() {
-        super(Type.HONEY);
+    public HoneyHive(int x, int y) {
+        super(Type.HONEY, x, y);
         // TODO Auto-generated constructor stub
     }
 

@@ -6,6 +6,7 @@
 package main.java.Factory;
 
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -27,7 +28,7 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
     private static int hiveNumber = 1;
     
     private int rooms;
-    private Point2D position;
+    public Point2D position;
     private String hiveName;
     
     private int food;
@@ -43,8 +44,9 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
     //different tasks
     private HashMap<Task, PriorityQueue<Bee> > currentTasks;
     
-    public Beehive_Factory(Type t) {
+    public Beehive_Factory(Type t, int x, int y) {
         type = t;
+        position = new Point2D.Double(x,y);
         queenBee = new Queen();
         _SENTINEL = new Bee(type);
         hiveName = "Hive: " + getHiveNumber() + " type: "+ t;
@@ -82,7 +84,7 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
      */
     public void makeBees(int makeCount) {
         if(food >= (_BABY_FOOD - _SENTINEL.getReproduction()) * makeCount && rooms > totalBees) {
-            food -= _BABY_FOOD - _SENTINEL.getReproduction() * makeCount;
+            food -= (_BABY_FOOD - _SENTINEL.getReproduction()) * makeCount;
             incubatingBees += makeCount;
         }
         else {
@@ -113,13 +115,9 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
         int transfered = 1;
         if(food >= (_ROOM_FOOD - _SENTINEL.getEngineering()) * makeCount && 
                 (assignedBeeCount(Task.IDLE) > 0 || assignedBeeCount(Task.BUILDING) > 0)) {
-            food -= _ROOM_FOOD - _SENTINEL.getEngineering() * makeCount;
+            food -= (_ROOM_FOOD - _SENTINEL.getEngineering()) * makeCount;
             roomsInProgress += makeCount;
-            while(assignedBeeCount(Task.IDLE) > 0 && builders > 0) {
-                currentTasks.get(Task.BUILDING).add(currentTasks.get(Task.IDLE).remove());
-                builders--;
-                transfered++;
-            }
+            transfered = transferBees(Task.IDLE, Task.BUILDING, builders-assignedBeeCount(Task.BUILDING));
             System.out.println(hiveName + " Transfered " + transfered + " idle bees to Building");
         } else {
             if(food < (_ROOM_FOOD - _SENTINEL.getEngineering()) * makeCount && 
@@ -148,7 +146,95 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
         }
     }
     
+    //TODO change to message to mediator
+    public void Attack(Beehive_Factory enemy, int attackers) {
+        if(assignedBeeCount(Task.FIGHTING) < attackers) {
+            int neededFighters = attackers - assignedBeeCount(Task.FIGHTING);
+            if(neededFighters > assignedBeeCount(Task.IDLE)) {
+                System.out.println("Not enough availble Bees to launch attack");
+            }
+            else {
+                int transfered = transferBees(Task.IDLE, Task.FIGHTING, neededFighters);
+                if(transfered > 0) {
+                    System.out.println("Transfered: " + transfered + " from idle to Fighting.");
+                }
+                changeStamina(Task.FIGHTING, (int)(position.distance(enemy.position) * 0.1), "marching to " + enemy.hiveName);
+                Fight(enemy);
+            }
+        }
+    }
     
+    
+    public void Fight(Beehive_Factory enemy) {
+        int totalHitPoints = enemy._SENTINEL.getStrength() * enemy.getTotalBees();
+        changeStaminaa(Task.FIGHTING, totalHitPoints, "Fighting " + enemy.hiveName);
+        
+        if(assignedBeeCount(Task.FIGHTING) > 0) {
+            HighlanderEffect(enemy);
+            System.out.println(this.hiveName + " defeated " + enemy.hiveName + " and absorbs their power!");
+        } else {
+            System.out.println(this.hiveName + " failed their invasion on " + enemy.hiveName);
+        }
+    }
+    
+    public void defend(Beehive_Factory enemy) {}
+    
+    private void changeStaminaa(Task t, int change, String effect) {
+        int reduce = 0;
+        ArrayList<Bee> deadBees = new ArrayList<>();
+        for(Bee b : currentTasks.get(t)) {
+            if(change == 0) {
+                return;
+            }
+            reduce = b.getStamina();
+            b.setStamina(change);
+            change -= reduce;
+            if (b.getStamina() <= 0) {
+                System.out.println("Bee " + b.getId() + " has died from " + effect);
+                deadBees.add(b);
+            }
+        }
+        for (Bee b : deadBees) {
+            currentTasks.get(t).remove(b);
+        }
+        updateBeeCount();
+    }
+    
+    private void changeStamina(Task t, int change, String effect) {
+        ArrayList<Bee> deadBees = new ArrayList<>();
+        for(Bee b : currentTasks.get(t)) {
+            b.setStamina(change);
+            if (b.getStamina() <= 0) {
+                //int i = 0;
+                System.out.println("Bee " + b.getId() + " has died from " + effect);
+                deadBees.add(b);
+                //i++;
+            }
+        }
+        for (Bee b : deadBees) {
+            currentTasks.get(t).remove(b);
+        }
+        updateBeeCount();
+    }
+    
+       
+    private void HighlanderEffect(Beehive_Factory enemy){
+        _SENTINEL.HighlanderEffect(enemy.getSentinel());
+    }
+   
+    private int transferBees(Task from, Task to, int toTransfer) {
+        int transfered = 0;
+        if(assignedBeeCount(from) < 1) { 
+            return 0; 
+            }
+        while(assignedBeeCount(from) > 0 && toTransfer > 0) {
+            currentTasks.get(to).add(currentTasks.get(from).remove());
+            toTransfer--;
+            transfered++;
+        }
+        return transfered;
+        
+    }
 
     /**
      * @return the hiveNumber
@@ -162,6 +248,10 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
      */
     public static void setHiveNumber(int hiveNumber) {
         Beehive_Factory.hiveNumber = hiveNumber;
+    }
+    
+    public Bee getSentinel() {
+        return _SENTINEL;
     }
     
     /**
@@ -192,6 +282,7 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
     }
     
     private void updateBeeCount() {
+        totalBees = 0;
         for(Entry<Task, PriorityQueue<Bee>> entry : currentTasks.entrySet()) {
             totalBees += entry.getValue().size();
         } 
@@ -204,16 +295,20 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
     public String toString() {
         String stats = "";
         stats += hiveName + "\n";
-        stats += "total Bees: " + totalBees + "\n";
+        stats += "total Bees:  " + totalBees + "\n";
         stats += "total Rooms: " + rooms + "\n";
-        stats += "total Food: " + food + "\n\n";
-        stats += "Bees incubating: " + incubatingBees + "\n";
+        stats += "total Food:  " + food + "\n\n";
+        stats += "Bees incubating:          " + incubatingBees + "\n";
         stats += "Rooms under construction: " + roomsInProgress + "\n\n";
         stats += "Bee stats:\n" + _SENTINEL.toString();
         
         return stats;
         
         
+    }
+    
+    public int getTotalBees() {
+        return totalBees;
     }
 
 }

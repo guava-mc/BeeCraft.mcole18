@@ -90,8 +90,8 @@ public class Bee implements Bee_Enums, Comparable<Bee>{
         baseStats.special();
     }
     
-    public void HighlanderEffect(Abstract_Bee bee) {
-        baseStats.HighLanderEffect(bee);
+    public void HighlanderEffect(Bee bee) {
+        baseStats.HighLanderEffect(bee.baseStats);
     }
     
     public String toString() {
@@ -103,6 +103,11 @@ public class Bee implements Bee_Enums, Comparable<Bee>{
       return  this.stamina - other.getStamina();    
     }
     
+    @Override
+    public boolean equals(Object o) {
+        Bee other = (Bee)o;
+        return this.id == other.getId();
+    }
 
     
 }

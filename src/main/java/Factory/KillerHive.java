@@ -20,8 +20,8 @@ public class KillerHive extends Beehive_Factory {
      * Constructor
      * @param t
      */
-    public KillerHive() {
-        super(Type.KILLER);
+    public KillerHive(int x, int y) {
+        super(Type.KILLER, x, y);
         // TODO Auto-generated constructor stub
     }
 

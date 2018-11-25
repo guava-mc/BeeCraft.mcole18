@@ -91,7 +91,7 @@ public abstract class Abstract_Bee implements Bee_Flyweight, Comparable<Bee>{
         if(bee.carpenterBonus) {
             carpenterBonus = true;
             engineering += 5;
-            stamina += 5;
+            staminaMax += 5;
         }
         if(bee.killerBonus) {
             killerBonus = true;
@@ -101,13 +101,13 @@ public abstract class Abstract_Bee implements Bee_Flyweight, Comparable<Bee>{
         if(bee.bumbleBonus) {
             bumbleBonus = true;
             reproduction += 5;
-            stamina += 5;
+            staminaMax += 5;
         }
         if(bee.honeyBonus) {
             honeyBonus = true;
             harvesting += 5;
-            stamina += 3;
-            recoveryRate += 2;
+            staminaMax += 3;
+            recoveryRate += 0.5;
         }
      }
     
