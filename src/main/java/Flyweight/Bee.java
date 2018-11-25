@@ -15,7 +15,7 @@ import main.java.Flyweight.Bee_Enums.Type;
  * @version 1.0
  *
  */
-public class Bee implements Bee_Enums {
+public class Bee implements Bee_Enums, Comparable<Bee>{
     private Bee_Flyweight baseStats;
     private int id;
     private int stamina;
@@ -92,6 +92,15 @@ public class Bee implements Bee_Enums {
     
     public void HighlanderEffect(Abstract_Bee bee) {
         baseStats.HighLanderEffect(bee);
+    }
+    
+    public String toString() {
+        return baseStats.toString() + "\n";
+    }
+    
+    @Override
+    public int compareTo(Bee other) {
+      return  this.stamina - other.getStamina();    
     }
     
 

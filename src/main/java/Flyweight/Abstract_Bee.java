@@ -16,7 +16,7 @@ import main.java.Flyweight.Bee_Enums.Type;
  * @version 1.0
  *
  */
-public abstract class Abstract_Bee implements Bee_Flyweight{
+public abstract class Abstract_Bee implements Bee_Flyweight, Comparable<Bee>{
     
     protected final int RESTING_RECOVERY = 5;
     protected final int IDLE_RECOVERY = 3;
@@ -110,4 +110,33 @@ public abstract class Abstract_Bee implements Bee_Flyweight{
             recoveryRate += 2;
         }
      }
+    
+    @Override
+    public int compareTo(Bee other) {
+      return  this.stamina - other.getStamina();    
+    }
+    
+    
+    /*
+     *  protected int engineering = 5;
+        protected int strength = 5;
+        protected int reproduction = 5;
+        protected int harvesting = 5;
+        protected int staminaMax = 5;
+        protected int stamina;
+        protected float recoveryRate = 1;
+     */
+    
+    @Override
+    public String toString() {
+        String stats = "";
+        
+        stats += "Strength\tMax Stamina\tEngineering\tReproduction\tHarvesting\tRecovery Rate\n";
+        stats += "   "+ strength + "\t\t     " + staminaMax + "\t\t     " + engineering + "\t\t     " 
+                + reproduction + "\t\t     " + harvesting + "\t\t     " + recoveryRate;
+       
+        
+        return stats;
+        
+    }
 }

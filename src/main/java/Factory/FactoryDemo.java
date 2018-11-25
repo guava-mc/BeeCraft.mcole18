@@ -15,5 +15,22 @@ package main.java.Factory;
  *
  */
 public class FactoryDemo {
-
+       
+    public static void main(String[] args) {
+        Beehive_Factory hive1 = new KillerHive();
+        Beehive_Factory hive2 = new KillerHive();
+        Beehive_Factory hive3 = new KillerHive();
+        Beehive_Factory hive4 = new KillerHive();
+        
+        Beehive_Factory hive5 = new HoneyHive();
+        
+        System.out.println(hive1.toString());
+        
+        hive1.makeBees(5);
+        hive1.makeRooms(5, 1);
+        
+        hive1.update(50);
+        
+        System.out.println(hive1.toString());
+    }
 }

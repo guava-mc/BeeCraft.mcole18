@@ -1,5 +1,6 @@
 package main.java;
 
+import main.java.Flyweight.FlyweightDemo;
 import main.java.singleton.SingletonDemo;
 
 public class Main {
@@ -13,5 +14,7 @@ public class Main {
         System.out.println("This Project is the Bees Knees!");
         
         SingletonDemo.main(args);
+        
+        FlyweightDemo.main(args);
     }
 }
