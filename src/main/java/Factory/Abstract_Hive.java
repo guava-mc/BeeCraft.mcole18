@@ -23,7 +23,7 @@ import main.java.Flyweight.Queen;
  * @version 1.0
  *
  */
-public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
+public abstract class Abstract_Hive implements Bee_Enums, Hive_Constants{
     
     private static int hiveNumber = 1;
     
@@ -44,7 +44,7 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
     //different tasks
     private HashMap<Task, PriorityQueue<Bee> > currentTasks;
     
-    public Beehive_Factory(Type t, int x, int y) {
+    public Abstract_Hive(Type t, int x, int y) {
         type = t;
         position = new Point2D.Double(x,y);
         queenBee = new Queen();
@@ -147,7 +147,7 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
     }
     
     //TODO change to message to mediator
-    public void Attack(Beehive_Factory enemy, int attackers) {
+    public void Attack(Abstract_Hive enemy, int attackers) {
         if(assignedBeeCount(Task.FIGHTING) < attackers) {
             int neededFighters = attackers - assignedBeeCount(Task.FIGHTING);
             if(neededFighters > assignedBeeCount(Task.IDLE)) {
@@ -165,7 +165,7 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
     }
     
     
-    public void Fight(Beehive_Factory enemy) {
+    public void Fight(Abstract_Hive enemy) {
         int totalHitPoints = enemy._SENTINEL.getStrength() * enemy.getTotalBees();
         changeStaminaa(Task.FIGHTING, totalHitPoints, "Fighting " + enemy.hiveName);
         
@@ -177,7 +177,7 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
         }
     }
     
-    public void defend(Beehive_Factory enemy) {}
+    public void defend(Abstract_Hive enemy) {}
     
     private void changeStaminaa(Task t, int change, String effect) {
         int reduce = 0;
@@ -218,7 +218,7 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
     }
     
        
-    private void HighlanderEffect(Beehive_Factory enemy){
+    private void HighlanderEffect(Abstract_Hive enemy){
         _SENTINEL.HighlanderEffect(enemy.getSentinel());
     }
    
@@ -247,7 +247,7 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
      * @param hiveNumber the hiveNumber to set
      */
     public static void setHiveNumber(int hiveNumber) {
-        Beehive_Factory.hiveNumber = hiveNumber;
+        Abstract_Hive.hiveNumber = hiveNumber;
     }
     
     public Bee getSentinel() {
@@ -310,5 +310,4 @@ public abstract class Beehive_Factory implements Bee_Enums, Hive_Constants{
     public int getTotalBees() {
         return totalBees;
     }
-
 }

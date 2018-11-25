@@ -9,7 +9,7 @@ package main.java.singleton;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import main.java.Factory.Beehive_Factory;
+import main.java.Factory.Abstract_Hive;
 
 /**
  * Description: Apiary for bees/beehive factions. 
@@ -29,7 +29,7 @@ public class Apiary {
    
     private static boolean mutex = false;
     private static int ticks;
-    private static HashMap<String,Beehive_Factory> _HIVES;
+    private static HashMap<String,Abstract_Hive> _HIVES;
     
     private Apiary() {
         setTicks(0);
@@ -63,7 +63,7 @@ public class Apiary {
         setTicks(tick);
         
         //update all the beehives in hashmap
-        for (Entry<String, Beehive_Factory> hiveId : _HIVES.entrySet()) {
+        for (Entry<String, Abstract_Hive> hiveId : _HIVES.entrySet()) {
             hiveId.getValue().update(tick);
         }
     }

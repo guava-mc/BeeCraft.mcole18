@@ -14,15 +14,14 @@ import main.java.Flyweight.Bee_Enums;
  * @version 1.0
  *
  */
-public class KillerHive extends Beehive_Factory {
+public class KillerHive extends Abstract_Hive {
 
     /**
      * Constructor
-     * @param t
+     * @param x - xPos
+     * @param y - yPos
      */
     public KillerHive(int x, int y) {
         super(Type.KILLER, x, y);
-        // TODO Auto-generated constructor stub
     }
-
 }

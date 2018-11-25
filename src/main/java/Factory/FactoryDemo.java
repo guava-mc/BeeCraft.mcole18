@@ -5,6 +5,8 @@
  */
 package main.java.Factory;
 
+import main.java.Flyweight.Bee_Enums.Type;
+
 /**
  * Description: Create a hive factory which can create different hives
  * and use abstract methods to implement hive specific behaviors from
@@ -17,12 +19,15 @@ package main.java.Factory;
 public class FactoryDemo {
        
     public static void main(String[] args) {
-        Beehive_Factory hive1 = new KillerHive(0,0);
-        Beehive_Factory hive2 = new KillerHive(5,5);
-        Beehive_Factory hive3 = new KillerHive(4,4);
-        Beehive_Factory hive4 = new KillerHive(3,3);
         
-        Beehive_Factory hive5 = new HoneyHive(1,1);
+        Hive_Factory factory = new Hive_Factory();
+       
+        Abstract_Hive hive1 = factory.makeHive(Type.KILLER, 0,0);
+        Abstract_Hive hive2 = factory.makeHive(Type.KILLER, 3,3);
+        Abstract_Hive hive3 = factory.makeHive(Type.KILLER, 4,4);
+        Abstract_Hive hive4 = factory.makeHive(Type.KILLER, 1,1);
+        
+        Abstract_Hive hive5 = factory.makeHive(Type.HONEY, 2,2);
         
         System.out.println(hive1.toString());
         
