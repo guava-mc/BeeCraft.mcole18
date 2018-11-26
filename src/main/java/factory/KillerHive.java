@@ -3,9 +3,9 @@
  * Date:   Nov 25, 2018
  * 
  */
-package main.java.Factory;
+package main.java.factory;
 
-import main.java.Flyweight.Bee_Enums;
+import main.java.flyweight.BeeEnums;
 
 /**
  * Description: TODO
@@ -14,7 +14,7 @@ import main.java.Flyweight.Bee_Enums;
  * @version 1.0
  *
  */
-public class KillerHive extends Abstract_Hive {
+public class KillerHive extends AbstractHive {
 
     /**
      * Constructor

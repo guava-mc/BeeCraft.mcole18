@@ -3,21 +3,23 @@
  * Date:   Nov 23, 2018
  * 
  */
-package main.java.Flyweight;
+
+package main.java.flyweight;
 
 /**
- * Description: TODO
+ * Description: BeeBase class.
  * 
  * @author  mcole18
  * @version 1.0
  *
  */
-public class Bee_Base extends Abstract_Bee{
+public class BeeBase extends AbstractBee {
+    
      /**
-     * Constructor - set base stats based on type and set bool
-     * @param t
+     * Constructor - set base stats based on type and set bool.
+     * @param t - type of bee
      */
-    public Bee_Base(Type t) {
+    public BeeBase(Type t) {
         currentTask = Task.IDLE;
         type = t;
         if (Type.CARPENTER == t) {
@@ -48,16 +50,17 @@ public class Bee_Base extends Abstract_Bee{
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see main.java.Factory.bee.Abstract_Bee#rest(int)
      */
     @Override
     public int rest(int tick) {
-        if(resting) {
-            return (int) (stamina + (recoveryRate * tick * RESTING_RECOVERY));
-        }
-        else {
-            return stamina + (IDLE_RECOVERY * tick);
+        if (resting) {
+            return (int) (stamina + (recoveryRate * tick * restingRecovery));
+        } else {
+            return stamina + (idleRecovery * tick);
         }
     }
 
@@ -66,16 +69,16 @@ public class Bee_Base extends Abstract_Bee{
      */
     @Override
     public void special() {
-        if(carpenterBonus) {
+        if (carpenterBonus) {
             System.out.println("I am a cool carpenter bee.");
         }
-        if(killerBonus) {
+        if (killerBonus) {
             System.out.println("I am a kickass killer bee.");
         }
-        if(bumbleBonus) {
+        if (bumbleBonus) {
             System.out.println("I am a beautiful bumble bee.");
         }
-        if(honeyBonus) {
+        if (honeyBonus) {
             System.out.println("I am a harvesting honey bee.");
         }
         
@@ -86,8 +89,8 @@ public class Bee_Base extends Abstract_Bee{
      */
     @Override
     public void setTask(Task t) {
-       currentTask = t;
-       System.out.println("Setting task to " + t);
+        currentTask = t;
+        System.out.println("Setting task to " + t);
     }
-    
+
 }

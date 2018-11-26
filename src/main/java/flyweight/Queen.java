@@ -3,19 +3,26 @@
  * Date:   Nov 23, 2018
  * 
  */
-package main.java.Flyweight;
+
+package main.java.flyweight;
 
 /**
- * Description: TODO
+ * Description: Creates a queen for a hive.
  * 
  * @author  mcole18
  * @version 1.0
  *
  */
-public class Queen extends Abstract_Bee {
+public class Queen extends AbstractBee {
 
+    private int stamina;
+    
+    /**
+     * Constructor.
+     */
     public Queen() {
-        staminaMax = 1500;
+        staminaMax = 50;
+        stamina = staminaMax;
         recoveryRate = 2;
     }
 
@@ -23,9 +30,8 @@ public class Queen extends Abstract_Bee {
      * @see main.java.Factory.bee.Abstract_Bee#rest(int)
      */
     @Override
-    public
-    int rest(int tick) {
-        return (int) (stamina + (IDLE_RECOVERY * tick * recoveryRate));
+    public int rest(int tick) {
+        return (int) (stamina + (idleRecovery * tick * recoveryRate));
         
     }
 
@@ -33,8 +39,7 @@ public class Queen extends Abstract_Bee {
      * @see main.java.Factory.bee.Abstract_Bee#special()
      */
     @Override
-    public
-    void special() {
+    public void special() {
         System.out.println("I am the Queen!!!");
         
     }
@@ -46,6 +51,14 @@ public class Queen extends Abstract_Bee {
     public void setTask(Task t) {
         // TODO Auto-generated method stub
         
+    }
+    
+    public int getStamina() {
+        return stamina;
+    }
+    
+    public void setStamina(int hitPoints) {
+        stamina -= hitPoints;
     }
 
 }

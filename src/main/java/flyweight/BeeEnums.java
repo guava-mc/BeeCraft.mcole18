@@ -3,7 +3,7 @@
  * Date:   Nov 23, 2018
  * 
  */
-package main.java.Flyweight;
+package main.java.flyweight;
 
 /**
  * Description: TODO
@@ -12,7 +12,7 @@ package main.java.Flyweight;
  * @version 1.0
  *
  */
-public interface Bee_Enums {
+public interface BeeEnums {
     enum Task {
         HARVESTING, FIGHTING, BUILDING, RESTING, IDLE
     }

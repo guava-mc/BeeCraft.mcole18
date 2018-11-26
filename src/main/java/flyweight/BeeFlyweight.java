@@ -4,26 +4,35 @@
  * 
  */
 
-package main.java.Flyweight;
+package main.java.flyweight;
 
 /**
- * Description: TODO
+ * Description: BeeFlyweight DP Class.
  * 
  * @author  mcole18
  * @version 1.0
  *
  */
-public interface Bee_Flyweight extends Bee_Enums{
+public interface BeeFlyweight extends BeeEnums {
     
     public void setTask(Task t);
+    
     public Type getType();
+    
     public Task getTask();
+    
     public int getEngineering();
-    public int getStrength();    
-    public int getReproduction();    
-    public int getHarvesting();    
-    public int getStamMax();    
+    
+    public int getStrength();
+    
+    public int getReproduction();
+    
+    public int getHarvesting();
+    
+    public int getStamMax();
+    
     public float getRecoveryRate();
+    
     public boolean isResting();
     
     
@@ -53,13 +62,14 @@ public interface Bee_Flyweight extends Bee_Enums{
      *
      */
     public void special();
+    
     /**
      * Description: Check destroyed hive's bee attributes
-     * and adjust conquering hives's bee attributes
+     * and adjust conquering hives's bee attributes.
      * 
      * @param baseStats - losing hive's bee stats
      */
-    public void HighLanderEffect(Bee_Flyweight baseStats);
+    public void highLanderEffect(BeeFlyweight baseStats);
         
     
 }

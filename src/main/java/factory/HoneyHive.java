@@ -1,9 +1,9 @@
 /**
- * File:   CarpenterHive.java
+ * File:   Honey_Hive.java
  * Date:   Nov 25, 2018
  * 
  */
-package main.java.Factory;
+package main.java.factory;
 
 /**
  * Description: TODO
@@ -12,15 +12,15 @@ package main.java.Factory;
  * @version 1.0
  *
  */
-public class CarpenterHive extends Abstract_Hive{
+public class HoneyHive extends AbstractHive{
 
     /**
      * Constructor
      * @param x - xPos
      * @param y - yPos
      */
-    public CarpenterHive(int x, int y) {
-        super(Type.CARPENTER, x, y);
+    public HoneyHive(int x, int y) {
+        super(Type.HONEY, x, y);
     }
 
 }

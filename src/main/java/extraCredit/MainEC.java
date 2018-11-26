@@ -3,7 +3,7 @@
  * Date:   Nov 22, 2018
  * 
  */
-package main.java.ExtraCredit;
+package main.java.extraCredit;
 
 /**
  * Description: TODO

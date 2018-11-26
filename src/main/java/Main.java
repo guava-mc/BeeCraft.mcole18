@@ -1,6 +1,7 @@
 package main.java;
 
-import main.java.Flyweight.FlyweightDemo;
+import main.java.factory.FactoryDemo;
+import main.java.flyweight.FlyweightDemo;
 import main.java.singleton.SingletonDemo;
 
 public class Main {
@@ -16,5 +17,7 @@ public class Main {
         SingletonDemo.main(args);
         
         FlyweightDemo.main(args);
+        
+        FactoryDemo.main(args);
     }
 }

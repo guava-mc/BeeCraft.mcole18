@@ -3,25 +3,31 @@
  * Date:   Nov 23, 2018
  * 
  */
-package main.java.Flyweight;
 
-import main.java.Flyweight.Bee_Enums.Task;
-import main.java.Flyweight.Bee_Enums.Type;
+package main.java.flyweight;
+
+import main.java.flyweight.BeeEnums.Task;
+import main.java.flyweight.BeeEnums.Type;
 
 /**
- * Description: TODO
+ * Description: Bee class.
  * 
  * @author  mcole18
  * @version 1.0
  *
  */
-public class Bee implements Bee_Enums, Comparable<Bee>{
-    private Bee_Flyweight baseStats;
+public class Bee implements BeeEnums, Comparable<Bee>{
+    private BeeFlyweight baseStats;
     private int id;
     private int stamina;
     private Task task;
     
-    public Bee (Type t) {
+    /**
+     * Constructor.
+     * 
+     * @param t - type of bee
+     */
+    public Bee(Type t) {
         baseStats = BeeFactory.getBee(t);
         id = BeeFactory.getBeeCount(t);
         stamina = baseStats.getStamMax();
@@ -41,6 +47,7 @@ public class Bee implements Bee_Enums, Comparable<Bee>{
     }
 
     /**
+     * .
      * @return the task
      */
     public Task getTask() {
@@ -48,6 +55,7 @@ public class Bee implements Bee_Enums, Comparable<Bee>{
     }
 
     /**
+     * .
      * @param task the task to set
      */
     public void setTask(Task task) {
@@ -90,23 +98,37 @@ public class Bee implements Bee_Enums, Comparable<Bee>{
         baseStats.special();
     }
     
-    public void HighlanderEffect(Bee bee) {
-        baseStats.HighLanderEffect(bee.baseStats);
+    public void highlanderEffect(Bee bee) {
+        baseStats.highLanderEffect(bee.baseStats);
     }
     
     public String toString() {
         return baseStats.toString() + "\n";
     }
-    
+
     @Override
     public int compareTo(Bee other) {
-      return  this.stamina - other.getStamina();    
+        return this.stamina - other.getStamina();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null) {
+            return false;
+        }
+        if (o == this) {
+            return true;
+        }
+        if (o.getClass() != this.getClass()) {
+            return false;
+        }
+        Bee other = (Bee)o;
+        return this.id == other.getId();
     }
     
     @Override
-    public boolean equals(Object o) {
-        Bee other = (Bee)o;
-        return this.id == other.getId();
+    public int hashCode() {
+        return baseStats.getEngineering() + baseStats.getReproduction() * 13;
     }
 
     

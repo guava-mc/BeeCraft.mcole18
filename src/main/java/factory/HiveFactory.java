@@ -3,9 +3,9 @@
  * Date:   Nov 25, 2018
  * 
  */
-package main.java.Factory;
+package main.java.factory;
 
-import main.java.Flyweight.Bee_Enums;
+import main.java.flyweight.BeeEnums;
 
 /**
  * Description: TODO
@@ -14,9 +14,10 @@ import main.java.Flyweight.Bee_Enums;
  * @version 1.0
  *
  */
-public class Hive_Factory implements Bee_Enums{
+public class HiveFactory implements BeeEnums{
     
-    public Abstract_Hive makeHive(Type t, int x, int y) {
+    public AbstractHive makeHive(Type t, int x, int y) {
+        System.out.println("new Hive created of type: " + t);
         if(t == Type.KILLER) {
             return new KillerHive(x,y);
         }

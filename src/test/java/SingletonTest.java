@@ -3,18 +3,19 @@
  * Date:   Nov 22, 2018
  * 
  */
+
 package test.java;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+
+import main.java.singleton.Apiary;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import main.java.singleton.Apiary;
-
 /**
- * Description: TODO
+ * Description: Test the Singleton class.
  * 
  * @author mcole18
  * @version 1.0

@@ -1,9 +1,9 @@
 /**
- * File:   Honey_Hive.java
+ * File:   BumbleHive.java
  * Date:   Nov 25, 2018
  * 
  */
-package main.java.Factory;
+package main.java.factory;
 
 /**
  * Description: TODO
@@ -12,15 +12,15 @@ package main.java.Factory;
  * @version 1.0
  *
  */
-public class HoneyHive extends Abstract_Hive{
+public class BumbleHive extends AbstractHive{
 
     /**
      * Constructor
      * @param x - xPos
      * @param y - yPos
      */
-    public HoneyHive(int x, int y) {
-        super(Type.HONEY, x, y);
+    public BumbleHive(int x, int y) {
+        super(Type.BUMBLE, x, y);
     }
 
 }

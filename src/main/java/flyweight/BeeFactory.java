@@ -3,7 +3,7 @@
  * Date:   Nov 23, 2018
  * 
  */
-package main.java.Flyweight;
+package main.java.flyweight;
 
 import java.util.HashMap;
 
@@ -14,26 +14,26 @@ import java.util.HashMap;
  * @version 1.0
  *
  */
-public class BeeFactory implements Bee_Enums{
+public class BeeFactory implements BeeEnums{
     
     private static int killerBeeCount = 0;
     private static int carpenterBeeCount = 0;
     private static int bumbleBeeCount = 0;
     private static int honeyBeeCount = 0;
     
-    private static HashMap <Type, Bee_Flyweight> beeMap = new HashMap<>();
+    private static HashMap <Type, BeeFlyweight> beeMap = new HashMap<>();
     
-    public static Bee_Flyweight getBee(Type t) {
+    public static BeeFlyweight getBee(Type t) {
         
         setBeeCount(t);
         
-        Bee_Flyweight bee = null;
+        BeeFlyweight bee = null;
         
         //if bee of Type t has already been created return reference
         if(beeMap.containsKey(t)) {
             bee = beeMap.get(t);
         } else {
-          bee = new Bee_Base(t);       
+          bee = new BeeBase(t);       
           beeMap.put(t, bee);
         }
         

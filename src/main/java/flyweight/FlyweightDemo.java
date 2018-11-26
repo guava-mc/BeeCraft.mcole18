@@ -3,7 +3,7 @@
  * Date:   Nov 22, 2018
  * 
  */
-package main.java.Flyweight;
+package main.java.flyweight;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -23,14 +23,14 @@ import java.util.Random;
  * @version 1.0
  *
  */
-public class FlyweightDemo implements Bee_Enums{
+public class FlyweightDemo implements BeeEnums{
     
     static Type[] types = {Type.CARPENTER, Type.KILLER, Type.BUMBLE, Type.HONEY};
     
     static Task[] tasks = {Task.BUILDING, Task.FIGHTING, Task.HARVESTING, Task.IDLE,
             Task.RESTING};
     
-    static Bee_Flyweight[] bees = new Bee_Flyweight[10];
+    static BeeFlyweight[] bees = new BeeFlyweight[10];
     
     static Random ran = new Random();
     
@@ -44,7 +44,7 @@ public class FlyweightDemo implements Bee_Enums{
                 + "using Flyweight,\nif bee type already exists, copies flyweight data"
                 + "and only sets new task\n");
         for(int i = 0; i < 10; i++) {
-            Bee_Flyweight bee = BeeFactory.getBee(randomType());
+            BeeFlyweight bee = BeeFactory.getBee(randomType());
             
             bee.setTask(randomTask());       
             
@@ -62,6 +62,8 @@ public class FlyweightDemo implements Bee_Enums{
         totalBees += BeeFactory.getBeeCount(Type.HONEY);
         System.out.println("Total number of honey bees: " + BeeFactory.getBeeCount(Type.HONEY));
         System.out.println("total bees: " + totalBees);
+        
+        System.out.println();
     }
       
 

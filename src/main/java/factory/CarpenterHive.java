@@ -1,9 +1,9 @@
 /**
- * File:   BumbleHive.java
+ * File:   CarpenterHive.java
  * Date:   Nov 25, 2018
  * 
  */
-package main.java.Factory;
+package main.java.factory;
 
 /**
  * Description: TODO
@@ -12,15 +12,15 @@ package main.java.Factory;
  * @version 1.0
  *
  */
-public class BumbleHive extends Abstract_Hive{
+public class CarpenterHive extends AbstractHive{
 
     /**
      * Constructor
      * @param x - xPos
      * @param y - yPos
      */
-    public BumbleHive(int x, int y) {
-        super(Type.BUMBLE, x, y);
+    public CarpenterHive(int x, int y) {
+        super(Type.CARPENTER, x, y);
     }
 
 }

@@ -3,7 +3,7 @@
  * Date:   Nov 22, 2018
  * 
  */
-package main.java.Mediator;
+package main.java.mediator;
 
 /**
  * Description: Creates a Mediator object that is used to pass messages

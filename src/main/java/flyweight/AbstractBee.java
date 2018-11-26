@@ -4,22 +4,22 @@
  * 
  */
 
-package main.java.Flyweight;
+package main.java.flyweight;
 
-import main.java.Flyweight.Bee_Enums.Task;
-import main.java.Flyweight.Bee_Enums.Type;
+import main.java.flyweight.BeeEnums.Task;
+import main.java.flyweight.BeeEnums.Type;
 
 /**
- * Description: TODO
+ * Description: AbstraceBee class.
  * 
  * @author  mcole18
  * @version 1.0
  *
  */
-public abstract class Abstract_Bee implements Bee_Flyweight, Comparable<Bee>{
+public abstract class AbstractBee implements BeeFlyweight, Comparable<Bee> {
     
-    protected final int RESTING_RECOVERY = 5;
-    protected final int IDLE_RECOVERY = 3;
+    protected final int restingRecovery = 5;
+    protected final int idleRecovery = 3;
     
     protected boolean carpenterBonus = false;
     protected boolean killerBonus = false;
@@ -57,11 +57,7 @@ public abstract class Abstract_Bee implements Bee_Flyweight, Comparable<Bee>{
     public int getStamMax() {
         return staminaMax;
     }
-    
-//    public int getStamina() {
-//        return stamina;
-//    }
-    
+        
     public float getRecoveryRate() {
         return recoveryRate;
     }
@@ -78,44 +74,49 @@ public abstract class Abstract_Bee implements Bee_Flyweight, Comparable<Bee>{
         System.out.println(type);
         return type;
     }
+    
     public Task getTask() {
         System.out.println(currentTask);
         return currentTask;
     }
     
-    public void HighLanderEffect(Bee_Flyweight bee) {
-        HighLanderEffect((Abstract_Bee) bee);
+    public void highLanderEffect(BeeFlyweight bee) {
+        highLanderEffect((AbstractBee) bee);
     }
     
-    public void HighLanderEffect(Abstract_Bee bee) {
-        if(bee.carpenterBonus) {
+    /**
+     * Description: absorb defeated bees powers. 
+     * 
+     * @param bee - defeated bee
+     */
+    public void highLanderEffect(AbstractBee bee) {
+        if (bee.carpenterBonus) {
             carpenterBonus = true;
             engineering += 5;
             staminaMax += 5;
         }
-        if(bee.killerBonus) {
+        if (bee.killerBonus) {
             killerBonus = true;
             strength += 5;
             recoveryRate += 5;
         }
-        if(bee.bumbleBonus) {
+        if (bee.bumbleBonus) {
             bumbleBonus = true;
             reproduction += 5;
             staminaMax += 5;
         }
-        if(bee.honeyBonus) {
+        if (bee.honeyBonus) {
             honeyBonus = true;
             harvesting += 5;
             staminaMax += 3;
             recoveryRate += 0.5;
         }
-     }
+    }
     
     @Override
     public int compareTo(Bee other) {
-      return  this.stamina - other.getStamina();    
+        return this.stamina - other.getStamina();
     }
-    
     
     /*
      *  protected int engineering = 5;
@@ -132,7 +133,8 @@ public abstract class Abstract_Bee implements Bee_Flyweight, Comparable<Bee>{
         String stats = "";
         
         stats += "Strength\tMax Stamina\tEngineering\tReproduction\tHarvesting\tRecovery Rate\n";
-        stats += "   "+ strength + "\t\t     " + staminaMax + "\t\t     " + engineering + "\t\t     " 
+        stats += "   " + strength + "\t\t     " + staminaMax 
+                + "\t\t     " + engineering + "\t\t     " 
                 + reproduction + "\t\t     " + harvesting + "\t\t     " + recoveryRate;
        
         
