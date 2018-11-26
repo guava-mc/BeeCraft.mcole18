@@ -29,7 +29,7 @@ public class Apiary {
    
     private static boolean mutex = false;
     private static int ticks;
-    private static HashMap<String,AbstractHive> _HIVES;
+    public static HashMap<String,AbstractHive> _HIVES;
     
     private Apiary() {
         setTicks(0);
@@ -61,11 +61,6 @@ public class Apiary {
      */
     public static void update(int tick) {
         setTicks(tick);
-        
-        //update all the beehives in hashmap
-        for (Entry<String, AbstractHive> hiveId : _HIVES.entrySet()) {
-            hiveId.getValue().update(tick);
-        }
     }
     
     public static void update() {
@@ -83,5 +78,7 @@ public class Apiary {
             ticks += tick;
         }
     }
+    
+    
     
 }
