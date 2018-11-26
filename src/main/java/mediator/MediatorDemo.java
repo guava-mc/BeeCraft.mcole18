@@ -49,7 +49,7 @@ public class MediatorDemo {
         
         mediator.sendTicks(apiary.getTicks(), hives);
         
-        mediator.hiveAction(hives.get("2"), 3, 0, 0);
+        mediator.hiveAction(hives.get(two), 3, 0, 0);
     }
 
 }
