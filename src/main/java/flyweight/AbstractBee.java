@@ -18,8 +18,8 @@ import main.java.flyweight.BeeEnums.Type;
  */
 public abstract class AbstractBee implements BeeFlyweight, Comparable<Bee> {
     
-    protected final int restingRecovery = 5;
-    protected final int idleRecovery = 3;
+    protected static final int restingRecovery = 5;
+    protected static final int idleRecovery = 3;
     
     protected boolean carpenterBonus = false;
     protected boolean killerBonus = false;

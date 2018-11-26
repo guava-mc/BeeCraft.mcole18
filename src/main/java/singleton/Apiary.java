@@ -29,7 +29,7 @@ public class Apiary {
    
     private static boolean mutex = false;
     private static int ticks;
-    public static HashMap<String,AbstractHive> _HIVES;
+    public HashMap<String,AbstractHive> _HIVES;
     
     private Apiary() {
         setTicks(0);

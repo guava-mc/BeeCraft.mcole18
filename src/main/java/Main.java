@@ -2,6 +2,7 @@ package main.java;
 
 import main.java.factory.FactoryDemo;
 import main.java.flyweight.FlyweightDemo;
+import main.java.mediator.MediatorDemo;
 import main.java.singleton.SingletonDemo;
 
 public class Main {
@@ -19,5 +20,7 @@ public class Main {
         FlyweightDemo.main(args);
         
         FactoryDemo.main(args);
+        
+        MediatorDemo.main(args);
     }
 }
