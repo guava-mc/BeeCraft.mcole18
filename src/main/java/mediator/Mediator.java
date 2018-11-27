@@ -33,6 +33,7 @@ public class Mediator implements MediatorInterface, AdapterInterface {
     public void sendAttack(String caller, String callee,
             HashMap<String, AbstractHive> hives, int attackers) {
         hives.get(caller).attack(hives.get(callee), attackers);
+        hives.get(callee).setEnemyAttacking(hives.get(caller));
     }
 
     /* (non-Javadoc)
@@ -75,5 +76,5 @@ public class Mediator implements MediatorInterface, AdapterInterface {
         }
     }
     };
-
+    
 }

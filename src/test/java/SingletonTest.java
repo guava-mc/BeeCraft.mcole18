@@ -8,6 +8,8 @@ package test.java;
 
 import static org.junit.Assert.assertTrue;
 
+import main.java.factory.HiveFactory;
+import main.java.flyweight.BeeEnums.Type;
 import main.java.singleton.Apiary;
 
 import org.junit.After;
@@ -26,6 +28,7 @@ public class SingletonTest {
     Apiary apiary;
     Apiary clone1;
     Apiary clone2;
+    HiveFactory factory;
 
     /**
      * Description: setUp tests.
@@ -36,6 +39,7 @@ public class SingletonTest {
     public void setUp() throws Exception {
         apiary = Apiary.start();
         clone1 = Apiary.start();
+        factory = new HiveFactory();
 
     }
 
@@ -98,6 +102,14 @@ public class SingletonTest {
         assertTrue(clone1.getTicks() == 15);
         clone2 = Apiary.start();
         assertTrue(apiary.getTicks() == clone2.getTicks());
+    }
+    
+    @Test
+    public void deadHiveTest() {
+        apiary.getHives().put("1", factory.makeHive(Type.KILLER, 1, 1));
+        apiary.getHives().get("1").setAlive(false);
+        apiary.update();
+        assertTrue(apiary.getHives().size() < 1);
     }
     
     

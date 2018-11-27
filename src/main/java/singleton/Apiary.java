@@ -6,6 +6,7 @@
 
 package main.java.singleton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -29,11 +30,11 @@ public class Apiary {
    
     private static boolean mutex = false;
     private static int ticks;
-    public HashMap<String,AbstractHive> _HIVES;
+    private static HashMap<String,AbstractHive> hives;
     
     private Apiary() {
         setTicks(0);
-        _HIVES = new HashMap<>();
+        hives = new HashMap<>();
     }
     
     /**
@@ -57,10 +58,19 @@ public class Apiary {
      * Description: updates entire Apiary to next tick increment
      * send tick information to hives so they can act accordingly.
      * 
-     * @param tick
+     * @param tick - number of ticks
      */
     public static void update(int tick) {
         setTicks(tick);
+        ArrayList<AbstractHive> destroyedHive = new ArrayList<>();
+        for (Entry<String, AbstractHive> hiveEntry : hives.entrySet()) {
+            if (!hiveEntry.getValue().isAlive()) {
+                destroyedHive.add(hiveEntry.getValue());
+            }
+        }
+        for (AbstractHive hive : destroyedHive) {
+            hives.remove(hive.getHiveId());
+        }
     }
     
     public static void update() {
@@ -77,6 +87,10 @@ public class Apiary {
         } else {
             ticks += tick;
         }
+    }
+    
+    public HashMap<String, AbstractHive> getHives() {
+        return hives;
     }
     
     

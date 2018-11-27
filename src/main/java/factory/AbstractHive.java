@@ -42,11 +42,12 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
     private int buildTime;
     private int beeHiveKills = 0;
     private  Queen queenBee;
-    private final Bee restingRecovery; //use only this bee to trigger highlander action
+    private final Bee sentinel; //use only this bee to trigger highlander action
     private final Type type;
     
     private AbstractHive enemyToFight;
     private AbstractHive enemyAttacking;
+    private int incomingHitPoints = 0;
     
     //different tasks
     private HashMap<Task, PriorityQueue<Bee>> currentTasks;
@@ -62,7 +63,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
         type = t;
         position = new Point2D.Double(x,y);
         queenBee = new Queen();
-        restingRecovery = new Bee(type);
+        sentinel = new Bee(type);
         hiveId = getHiveNumber();
         hiveName = "Hive: " + hiveId + " type: " + t;
         setHiveNumber(getHiveNumber() + 1);
@@ -70,10 +71,10 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
         currentTasks = new HashMap<>();
         generatePQs();
         
-        rooms = 10;
+        rooms = 30;
         food = 100;
-        incubateTime = _BABY_TICKS - restingRecovery.getReproduction();
-        buildTime = _ROOM_TICKS - restingRecovery.getEngineering();
+        incubateTime = _BABY_TICKS - sentinel.getReproduction();
+        buildTime = _ROOM_TICKS - sentinel.getEngineering();
         
         updateBeeCount();
     }
@@ -91,7 +92,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
         buildRooms(ticks);
         incubateBees(ticks);
         fight(enemyToFight);
-        defend(enemyAttacking);
+        defend(enemyAttacking, incomingHitPoints);
         updateBeeCount();
     }
     
@@ -101,12 +102,18 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
      *
      */
     public void makeBees(int makeCount) {
-        if (food >= (_BABY_FOOD - restingRecovery.getReproduction())
+        if (food >= (_BABY_FOOD - sentinel.getReproduction())
                 * makeCount && rooms > totalBees + makeCount) {
-            food -= (_BABY_FOOD - restingRecovery.getReproduction()) * makeCount;
+            food -= (_BABY_FOOD - sentinel.getReproduction()) * makeCount;
             incubatingBees += makeCount;
+            System.out.println(hiveName + " Incubating " + makeCount + " baby bees.");
         } else {
-            System.out.println(this.hiveName + ": Not enough food to make them bee babies!");
+            if (food >= (_BABY_FOOD - sentinel.getReproduction())
+                    * makeCount) {
+                System.out.println(this.hiveName + ": Not enough ROOMS to make them bee babies!");
+            } else {
+                System.out.println(this.hiveName + ": Not enough FOOD to make them bee babies!");
+            }
             //TODO take max food and max babies and begin incubating based off food
         }
     }
@@ -116,7 +123,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
         while (ticks > 0 && incubatingBees > 0) {
             incubateTime--;
             if (incubateTime <= 0) {
-                incubateTime = _BABY_TICKS - restingRecovery.getReproduction();;
+                incubateTime = _BABY_TICKS - sentinel.getReproduction();;
                 incubatingBees--;
                 addIdleBee();
             }
@@ -131,19 +138,22 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
      */
     public void makeRooms(int makeCount, int builders) {
         int transfered = 1;
-        if (food >= (_ROOM_FOOD - restingRecovery.getEngineering()) * makeCount 
+        if (food >= (_ROOM_FOOD - sentinel.getEngineering()) * makeCount 
                 && (assignedBeeCount(Task.IDLE) > 0 || assignedBeeCount(Task.BUILDING) > 0)) {
-            food -= (_ROOM_FOOD - restingRecovery.getEngineering()) * makeCount;
+            food -= (_ROOM_FOOD - sentinel.getEngineering()) * makeCount;
             roomsInProgress += makeCount;
             transfered = transferBees(Task.IDLE,
                     Task.BUILDING, builders - assignedBeeCount(Task.BUILDING));
-            System.out.println(hiveName + " Transfered " + transfered + " idle bees to Building");
+            if(transfered > 0) {
+                System.out.println(hiveName + " Transfered " + transfered + " idle bees to Building");
+            }
+            System.out.println(hiveName + " Added " + makeCount + " new rooms to the build queue");
         } else {
-            if (food < (_ROOM_FOOD - restingRecovery.getEngineering()) * makeCount 
+            if (food < (_ROOM_FOOD - sentinel.getEngineering()) * makeCount 
                     && assignedBeeCount(Task.IDLE) < 1 && assignedBeeCount(Task.BUILDING) < 1) {
                 System.out.println(this.hiveName + ": "
                         + "Not enough available bees and not enough food to make them rooms!");
-            } else if (food < (_ROOM_FOOD - restingRecovery.getEngineering()) * makeCount) {
+            } else if (food < (_ROOM_FOOD - sentinel.getEngineering()) * makeCount) {
                 System.out.println(this.hiveName + ": Not enough food to make them rooms!");
             } else {
                 System.out.println(this.hiveName + ": Not enough bees to make them rooms!");
@@ -157,7 +167,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
         while (ticks > 0 && roomsInProgress > 0) {
             buildTime -= assignedBeeCount(Task.BUILDING);
             if (buildTime <= 0) {
-                buildTime = _ROOM_TICKS - restingRecovery.getEngineering();
+                buildTime = _ROOM_TICKS - sentinel.getEngineering();
                 rooms++;
                 roomsInProgress--;
                 System.out.println(hiveName + " room complete");
@@ -175,8 +185,11 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
         int transfered = 0;
         if ((assignedBeeCount(Task.IDLE) > 0 || assignedBeeCount(Task.HARVESTING) > 0)) {
             transfered = transferBees(Task.IDLE, Task.HARVESTING, 
-                    harvesters - assignedBeeCount(Task.HARVESTING));
-            System.out.println(hiveName + " Transfered " + transfered + " idle bees to Harvesting");
+                    harvesters);
+            if (transfered > 0) {
+                System.out.println(hiveName + " Transfered " 
+                        + transfered + " idle bees to Harvesting");
+            }
         } else {
             System.out.println(this.hiveName + ": Not enough bees to make more Harvesters!");
         }
@@ -188,13 +201,13 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
         int foodHarvested = 0;
         while (ticks > 0) {
             harvesting += assignedBeeCount(Task.HARVESTING)
-                    * _HARVEST_RATE * restingRecovery.getHarvesting();
-            if (harvesting >= 1) {
-                food += (int)harvesting;
-                foodHarvested += (int)harvesting;
-                harvesting = 0;
-            }
+                    * _HARVEST_RATE * sentinel.getHarvesting();
             ticks--;
+        }
+        if (harvesting >= 1) {
+            food += (int)harvesting;
+            foodHarvested += (int)harvesting;
+            harvesting = 0;
         }
         System.out.println(hiveName + " food from harvesting: " + foodHarvested);
     }
@@ -221,6 +234,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
             }
         }
         if (assignedBeeCount(Task.FIGHTING) >= attackers) {
+            System.out.println("Ready to attack " + enemy.hiveName);
             this.enemyToFight = enemy;
             enemy.enemyAttacking = this;
             changeStaminaPerBee(Task.FIGHTING, (int)(position.distance(enemy.position) * 0.5),
@@ -237,13 +251,13 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
     public void fight(AbstractHive enemy) {
         if (enemy != null) {
             //send message here TODO
-            int totalHitPoints = enemy.restingRecovery.getStrength() 
+            int totalHitPoints = enemy.sentinel.getStrength() 
                     * (enemy.assignedBeeCount(Task.IDLE) + enemy.assignedBeeCount(Task.RESTING));
             changeStamina(Task.FIGHTING,
                     totalHitPoints, "Fighting " + enemy.hiveName);
             if (assignedBeeCount(Task.FIGHTING) > 0) {
                 if (attackQueen(assignedBeeCount(Task.FIGHTING) 
-                        * restingRecovery.getStrength()) <= 0) {
+                        * sentinel.getStrength()) <= 0) {
                     highlanderEffect(enemy);
                     System.out.println(this.hiveName + " defeated "
                             + enemy.hiveName + " and absorbs their power!");
@@ -260,8 +274,15 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
     }
     
     //get attacker
+    /**
+     * Description:. 
+     * 
+     * @param enemy
+     */
     public void setEnemyAttacking(AbstractHive enemy) {
         this.enemyAttacking = enemy;
+        incomingHitPoints = enemy.sentinel.getStrength() 
+                * enemy.assignedBeeCount(Task.FIGHTING);
     }
     
     /**
@@ -269,18 +290,15 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
      * 
      * @param enemy -Abstract_Hive from mediator
      */
-    private void defend(AbstractHive enemy) {
+    private void defend(AbstractHive enemy, int totalHitPoints) {
         if (enemy != null) {
-            int totalHitPoints = enemy.restingRecovery.getStrength() 
-                    * enemy.assignedBeeCount(Task.FIGHTING);
-            
             totalHitPoints = changeStamina(Task.IDLE, totalHitPoints,
                     "Defending against " + enemy.hiveName);
-            if (enemy.assignedBeeCount(Task.FIGHTING) > 0) {
+            if (totalHitPoints > 0) {
                 totalHitPoints = changeStamina(Task.RESTING,
                         totalHitPoints, "Defending against " + enemy.hiveName);
             }
-            if (enemy.assignedBeeCount(Task.FIGHTING) > 0) {
+            if (totalHitPoints > 0) {
                 queenBee.setStamina(totalHitPoints);
             }
             if (queenBee.getStamina() > 0) {
@@ -290,6 +308,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
                 setAlive(false);
             }
             this.enemyAttacking = null;
+            incomingHitPoints = 0;
         }
     }
     
@@ -356,7 +375,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
     
        
     private void highlanderEffect(AbstractHive enemy) {
-        restingRecovery.highlanderEffect(enemy.getSentinel());
+        sentinel.highlanderEffect(enemy.getSentinel());
     }
    
     private int transferBees(Task from, Task to, int toTransfer) {
@@ -390,7 +409,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
     }
     
     public Bee getSentinel() {
-        return restingRecovery;
+        return sentinel;
     }
     
     /**
@@ -409,9 +428,11 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
         currentTasks.put(Task.RESTING, new PriorityQueue<Bee>(Collections.reverseOrder()));
         currentTasks.put(Task.IDLE, new PriorityQueue<Bee>(Collections.reverseOrder()));
         
-        //start each field with a Bee
+        //start each field with 5 Bees
         for (Entry<Task, PriorityQueue<Bee>> entry : currentTasks.entrySet()) {
-            entry.getValue().add(new Bee(type));
+            for (int i = 0; i < 5; i++) {
+                entry.getValue().add(new Bee(type));
+            }
         }
     }
     
@@ -438,20 +459,23 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
     @Override
     public String toString() {
         String stats = "\n=========HiveData=========\n";
-        stats += hiveName + "\n";
-        stats += "total Bees:  " + totalBees + "\n";
-        stats += "total Rooms: " + rooms + "\n";
-        stats += "total Food:  " + food + "\n\n";
-        stats += "Bees Fighting: " + assignedBeeCount(Task.FIGHTING) + "\n";
-        stats += "Bees Building: " + assignedBeeCount(Task.BUILDING) + "\n";
-        stats += "Bees Harvesting: " + assignedBeeCount(Task.HARVESTING) + "\n";
-        stats += "Bees Resting: " + assignedBeeCount(Task.RESTING) + "\n";
-        stats += "Bees Idle: " + assignedBeeCount(Task.IDLE) + "\n\n";
-        stats += "Bees incubating:          " + incubatingBees + "\n";
-        stats += "Rooms under construction: " + roomsInProgress + "\n\n";
-        stats += "total hives destroyed:  " + beeHiveKills + "\n\n";
-        stats += "Bee stats:\n" + restingRecovery.toString();
-        
+        if(isAlive) {
+            stats += hiveName + "\n";
+            stats += "total Bees:  " + totalBees + "\n";
+            stats += "total Rooms: " + rooms + "\n";
+            stats += "total Food:  " + food + "\n\n";
+            stats += "Bees Fighting: " + assignedBeeCount(Task.FIGHTING) + "\n";
+            stats += "Bees Building: " + assignedBeeCount(Task.BUILDING) + "\n";
+            stats += "Bees Harvesting: " + assignedBeeCount(Task.HARVESTING) + "\n";
+            stats += "Bees Resting: " + assignedBeeCount(Task.RESTING) + "\n";
+            stats += "Bees Idle: " + assignedBeeCount(Task.IDLE) + "\n\n";
+            stats += "Bees incubating:          " + incubatingBees + "\n";
+            stats += "Rooms under construction: " + roomsInProgress + "\n\n";
+            stats += "total hives destroyed:  " + beeHiveKills + "\n\n";
+            stats += "Bee stats:\n" + sentinel.toString();
+        } else {
+            stats += "Nobody cares about a dead hive!";
+        }
         return stats;
         
         
