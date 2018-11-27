@@ -16,5 +16,10 @@ import main.java.factory.AbstractHive;
  */
 public interface AdapterInterface {
     
+    final int MAKE_BEES = 0;
+    final int MAKE_ROOMS = 1;
+    final int MAKE_HARVESTERS = 2;
+    final int HIVE_TOSTRING = 3;
+    
     void hiveAction(AbstractHive hive, int method, int var2, int var3);
 }

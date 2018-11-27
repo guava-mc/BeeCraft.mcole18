@@ -27,6 +27,24 @@ repositories {
   mavenCentral()
 }
 
+task FatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'main.java.Main'
+    }
+    baseName = 'assignDP.mcole18'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
+task ExtraFatJar(type: Jar) {
+    manifest {
+        attributes 'Main-Class': 'main.java.extracredit.MainEC'
+    }
+    baseName = 'extraDP.mcole18'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 
 ///////////////////////////////////////////////////////////////////////////
 // test setup

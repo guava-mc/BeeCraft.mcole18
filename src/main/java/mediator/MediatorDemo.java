@@ -20,7 +20,7 @@ import main.java.singleton.Apiary;
  * @version 1.0
  *
  */
-public class MediatorDemo {
+public class MediatorDemo extends Mediator{
     static Apiary apiary;
     public static void main(String[] args) {
         System.out.print("=====================================================\n"
@@ -40,8 +40,8 @@ public class MediatorDemo {
         hives.put(hive1.getHiveId(), hive1);
         hives.put(hive2.getHiveId(), hive2);
         
-        mediator.hiveAction(hives.get(one), 0, 3, 3);
-        mediator.hiveAction(hives.get(two), 1, 2, 2);
+        mediator.hiveAction(hives.get(one), MAKE_BEES, 3, 3);
+        mediator.hiveAction(hives.get(two), MAKE_ROOMS, 2, 2);
         
         mediator.sendAttack(one, two, hives, 1);
         
