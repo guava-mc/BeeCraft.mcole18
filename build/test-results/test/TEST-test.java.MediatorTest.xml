@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.java.MediatorTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2018-11-27T03:08:18" hostname="Masons-MBP" time="0.021">
+  <properties/>
+  <testcase name="adapterMakeRoonsTest" classname="test.java.MediatorTest" time="0.01"/>
+  <testcase name="adapterFightTest" classname="test.java.MediatorTest" time="0.001"/>
+  <testcase name="adapterMakeBeesTest" classname="test.java.MediatorTest" time="0.002"/>
+  <testcase name="adapterHarvesterTest" classname="test.java.MediatorTest" time="0.002"/>
+  <testcase name="adapterToStringTest" classname="test.java.MediatorTest" time="0.001"/>
+  <testcase name="tickTest" classname="test.java.MediatorTest" time="0.002"/>
+  <system-out><![CDATA[new Hive created of type: KILLER
+new Hive created of type: HONEY
+Honey Bee created!!
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

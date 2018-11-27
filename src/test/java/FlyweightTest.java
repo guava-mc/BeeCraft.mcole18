@@ -3,9 +3,8 @@
  * Date:   Nov 26, 2018
  * 
  */
+
 package test.java;
-
-
 
 import static org.junit.Assert.assertTrue;
 
@@ -21,7 +20,7 @@ import org.junit.Test;
 
 
 /**
- * Description: TODO
+ * Description: FlyweightTest.
  * 
  * @author  mcole18
  * @version 1.0
@@ -78,7 +77,7 @@ public class FlyweightTest {
     
     /**
      * Description: shows highlander works for flyweight
-     * is shared
+     * is shared.
      *
      */
     @Test

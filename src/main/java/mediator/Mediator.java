@@ -15,7 +15,7 @@ import main.java.factory.AbstractHive;
  * Description: Mediator DP the Abstract Bee classes need to 
  * be able to communicate with each other between update ticks.
  * 
- * Using the mediator they can create their instances and interact
+ * <p>Using the mediator they can create their instances and interact
  * with console in a loosely coupled fashion.
  * 
  * @author  mcole18

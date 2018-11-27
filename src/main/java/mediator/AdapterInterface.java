@@ -3,12 +3,15 @@
  * Date:   Nov 25, 2018
  * 
  */
+
 package main.java.mediator;
 
 import main.java.factory.AbstractHive;
 
 /**
- * Description: TODO
+ * Description: AdapterInterface. Design pattern that allows
+ * a single interface method to call mutliple methods in the
+ * mediator.
  * 
  * @author  mcole18
  * @version 1.0

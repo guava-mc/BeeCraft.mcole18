@@ -42,12 +42,12 @@ public interface BeeFlyweight extends BeeEnums {
      * function to update all BeeStates in the RESTING task for 
      * currentTasks hashMap in hive.
      * 
-     * Should be called in a hives update method that 
+     * <p>Should be called in a hives update method that 
      * updates each BeeBasic[] in currentTasks and then
      * checks with some sort of conditional to delegate bees
      * to other tasks with another map
      * 
-     * i.e  if resting stamina > 50 -> send BeeBasic i to IDLE
+     * <p>i.e  if resting stamina > 50 -> send BeeBasic i to IDLE
      *      if stamina == 0 remove BeeBasic, update totalBees
      *      if stamina < 5 -> send to resting, etc
      * 

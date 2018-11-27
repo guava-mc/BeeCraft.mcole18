@@ -16,7 +16,7 @@ import main.java.flyweight.BeeEnums.Type;
  * @version 1.0
  *
  */
-public class Bee implements BeeEnums, Comparable<Bee>{
+public class Bee implements BeeEnums, Comparable<Bee> {
     private BeeFlyweight baseStats;
     private int id;
     private int stamina;

@@ -3,19 +3,20 @@
  * Date:   Nov 25, 2018
  * 
  */
+
 package main.java.factory;
 
 /**
- * Description: TODO
+ * Description: HoneyHive class.
  * 
  * @author  mcole18
  * @version 1.0
  *
  */
-public class HoneyHive extends AbstractHive{
+public class HoneyHive extends AbstractHive {
 
     /**
-     * Constructor
+     * Constructor.
      * @param x - xPos
      * @param y - yPos
      */

@@ -144,7 +144,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
             roomsInProgress += makeCount;
             transfered = transferBees(Task.IDLE,
                     Task.BUILDING, builders - assignedBeeCount(Task.BUILDING));
-            if(transfered > 0) {
+            if (transfered > 0) {
                 System.out.println(hiveName + " Transfered " 
                         + transfered + " idle bees to Building");
             }
@@ -278,7 +278,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
     /**
      * Description:. 
      * 
-     * @param enemy
+     * @param enemy - enemy hive
      */
     public void setEnemyAttacking(AbstractHive enemy) {
         this.enemyAttacking = enemy;
@@ -460,7 +460,7 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
     @Override
     public String toString() {
         String stats = "\n=========HiveData=========\n";
-        if(isAlive) {
+        if (isAlive) {
             stats += hiveName + "\n";
             stats += "total Bees:  " + totalBees + "\n";
             stats += "total Rooms: " + rooms + "\n";

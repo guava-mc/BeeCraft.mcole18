@@ -59,7 +59,7 @@ public class SingletonTest {
     /**
      * Description: Verify that Apiary.start() works as intended.
      * 
-     * Tests that Apiary.start() inits the class that second call to Apiary.start
+     * <p>Tests that Apiary.start() inits the class that second call to Apiary.start
      * references original call and that uninitialized Apiary is not pre-loaded with
      * the attributes.
      *

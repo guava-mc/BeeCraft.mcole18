@@ -3,10 +3,11 @@
  * Date:   Nov 23, 2018
  * 
  */
+
 package main.java.flyweight;
 
 /**
- * Description: TODO
+ * Description: BeeEnums interface.
  * 
  * @author  mcole18
  * @version 1.0

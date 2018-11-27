@@ -26,7 +26,7 @@ import main.java.singleton.Apiary;
  * @version 1.0
  *
  */
-public class MainEC implements BeeEnums {
+public class MainExtraCred implements BeeEnums {
 
     static Apiary apiary = Apiary.start();
     static Scanner in;

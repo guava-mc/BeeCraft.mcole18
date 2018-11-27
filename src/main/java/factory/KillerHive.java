@@ -3,12 +3,13 @@
  * Date:   Nov 25, 2018
  * 
  */
+
 package main.java.factory;
 
 import main.java.flyweight.BeeEnums;
 
 /**
- * Description: TODO
+ * Description: KillerHive class.
  * 
  * @author  mcole18
  * @version 1.0
@@ -17,7 +18,7 @@ import main.java.flyweight.BeeEnums;
 public class KillerHive extends AbstractHive {
 
     /**
-     * Constructor
+     * Constructor.
      * @param x - xPos
      * @param y - yPos
      */

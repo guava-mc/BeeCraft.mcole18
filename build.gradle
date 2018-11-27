@@ -38,7 +38,7 @@ task FatJar(type: Jar) {
 
 task ExtraFatJar(type: Jar) {
     manifest {
-        attributes 'Main-Class': 'main.java.extracredit.MainEC'
+        attributes 'Main-Class': 'main.java.extracredit.MainExtraCred'
     }
     baseName = 'extraDP.mcole18'
     from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
@@ -54,7 +54,7 @@ test{
 	//filter to only run the testSuite
 	//can update for integration tests etc later
 	filter{
-		includeTestsMatching '*.DPTestSuite'
+		includeTestsMatching '*.DesignPatternTestSuite'
 	}
 	//runs jacoco coverage report
 	println 'Running jacocoTestReport'

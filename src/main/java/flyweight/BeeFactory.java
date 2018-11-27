@@ -27,7 +27,7 @@ public class BeeFactory implements BeeEnums {
     /**
      * Description: returns a flyweight by type.
      * 
-     * @param t
+     * @param t - type of bee
      * @return
      */
     public static BeeFlyweight getBee(Type t) {

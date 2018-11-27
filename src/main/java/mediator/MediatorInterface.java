@@ -3,6 +3,7 @@
  * Date:   Nov 25, 2018
  * 
  */
+
 package main.java.mediator;
 
 import java.util.HashMap;
@@ -10,7 +11,7 @@ import java.util.HashMap;
 import main.java.factory.AbstractHive;
 
 /**
- * Description: TODO
+ * Description: MediatorInterface.
  * 
  * @author  mcole18
  * @version 1.0
@@ -25,9 +26,9 @@ public interface MediatorInterface {
      * to the mediator that delegates the message to the correct hives
      * defend call.
      * 
-     * @param o
      * @return
      */
-    void sendAttack(String caller, String callee, HashMap<String, AbstractHive> hives, int attackers);
+    void sendAttack(String caller, String callee,
+            HashMap<String, AbstractHive> hives, int attackers);
 
 }

@@ -3,19 +3,20 @@
  * Date:   Nov 25, 2018
  * 
  */
+
 package main.java.factory;
 
 /**
- * Description: TODO
+ * Description: Bumble bee hive.
  * 
  * @author  mcole18
  * @version 1.0
  *
  */
-public class BumbleHive extends AbstractHive{
+public class BumbleHive extends AbstractHive {
 
     /**
-     * Constructor
+     * Constructor.
      * @param x - xPos
      * @param y - yPos
      */

@@ -10,17 +10,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import main.java.flyweight.FlyweightDemo;
-
 /**
- * Description: TODO.
+ * Description: TestSuite.
  * 
  * @author: mcole18
  * @version 1.0
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({SingletonTest.class, MediatorTest.class, FlyweightTest.class})
-public class DPTestSuite {
+@SuiteClasses({SingletonTest.class, MediatorTest.class, FlyweightTest.class, FactoryTest.class})
+public class DesignPatternTestSuite {
 
 }

@@ -15,8 +15,9 @@ package main.java.flyweight;
  */
 public class BeeBase extends AbstractBee {
     
-     /**
+    /**
      * Constructor - set base stats based on type and set bool.
+     * 
      * @param t - type of bee
      */
     public BeeBase(Type t) {

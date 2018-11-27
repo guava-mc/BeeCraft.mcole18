@@ -25,7 +25,7 @@ public class SingletonDemo {
     /**
      * Description: Apiary Demo main method.
      * 
-     * @param args
+     * @param args !
      */
     public static void main(String[] args) {
         System.out.print("=====================================================\n"
@@ -58,14 +58,7 @@ public class SingletonDemo {
         
         System.out.println("Incrementing ticks with apiary.update()\n"
                 + "expect all singletons ticks to equal 1");
-        
-        apiary.update();
-        System.out.print("Comparing singleton ticks across each Apiary\n" 
-                + "apiary: " + apiary.getTicks() + "\n"
-                + "clone1: " + clone1.getTicks() + "\n" 
-                + "clone2: " + clone1.getTicks() + "\n\n");
-
-        
+                
         System.out.println("Incrementing ticks with apiary.ticks(int tick)\n"
                 + "expect all singletons ticks to equal 15");
         

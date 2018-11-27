@@ -16,7 +16,7 @@ import java.util.Random;
  * of bee and then keep track of fewer things per 'bee' object i.e. stamina and
  * id
  * 
- * When calling a bee specific method can pass the flyweight data and the
+ * <p>When calling a bee specific method can pass the flyweight data and the
  * stamina/id to a temporary bee to perform any needed operations on that bee
  * 
  * 

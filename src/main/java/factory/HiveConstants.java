@@ -3,10 +3,11 @@
  * Date:   Nov 24, 2018
  * 
  */
+
 package main.java.factory;
 
 /**
- * Description: TODO
+ * Description: HiveConstants interface.
  * 
  * @author  mcole18
  * @version 1.0
