@@ -145,7 +145,8 @@ public abstract class AbstractHive implements BeeEnums, HiveConstants {
             transfered = transferBees(Task.IDLE,
                     Task.BUILDING, builders - assignedBeeCount(Task.BUILDING));
             if(transfered > 0) {
-                System.out.println(hiveName + " Transfered " + transfered + " idle bees to Building");
+                System.out.println(hiveName + " Transfered " 
+                        + transfered + " idle bees to Building");
             }
             System.out.println(hiveName + " Added " + makeCount + " new rooms to the build queue");
         } else {

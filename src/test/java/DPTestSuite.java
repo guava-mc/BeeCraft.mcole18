@@ -18,7 +18,7 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({SingletonTest.class})
+@SuiteClasses({SingletonTest.class, MediatorTest.class})
 public class DPTestSuite {
 
 }

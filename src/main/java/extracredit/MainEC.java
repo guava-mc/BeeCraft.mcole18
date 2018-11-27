@@ -157,7 +157,7 @@ public class MainEC implements BeeEnums {
         methods.put("SPAWN", new Methods() {
             public void executeMethod(List<String> params) {
                 Type t = null;
-                System.out.println(params.get(3));
+                //System.out.println(params.get(3));
                 switch (params.get(3).toUpperCase().charAt(0)) {
                     case 'K':
                         t = Type.KILLER;
@@ -225,7 +225,8 @@ public class MainEC implements BeeEnums {
 
         methods.put("SUMMARY", new Methods() {
             public void executeMethod(List<String> params) {
-                mediator.hiveAction(apiary.getHives().get(params.get(1)), Mediator.HIVE_TOSTRING, 0, 0);
+                mediator.hiveAction(apiary.getHives().get(params.get(1)),
+                        Mediator.HIVE_TOSTRING, 0, 0);
             }
         });
 
