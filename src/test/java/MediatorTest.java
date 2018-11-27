@@ -90,8 +90,8 @@ public class MediatorTest {
     public void adapterMakeRoonsTest() throws UnsupportedEncodingException {
        
         mediator.hiveAction(hive1, Mediator.MAKE_ROOMS, 1, 1);
-        assertTrue(outContent.toString("UTF-8").contains("Hive: 1 type: KILLER "
-                + "Added 1 new rooms to the build queue"));
+        String test = outContent.toString("UTF-8");
+        assertTrue(outContent.toString("UTF-8").contains("Added 1 new rooms"));
         
         mediator.hiveAction(hive1, Mediator.MAKE_ROOMS, 1, 100);
         assertTrue(!outContent.toString("UTF-8").contains("Transfered 95 idle"));

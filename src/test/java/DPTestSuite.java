@@ -10,6 +10,8 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
+import main.java.flyweight.FlyweightDemo;
+
 /**
  * Description: TODO.
  * 
@@ -18,7 +20,7 @@ import org.junit.runners.Suite.SuiteClasses;
  *
  */
 @RunWith(Suite.class)
-@SuiteClasses({SingletonTest.class, MediatorTest.class})
+@SuiteClasses({SingletonTest.class, MediatorTest.class, FlyweightTest.class})
 public class DPTestSuite {
 
 }
