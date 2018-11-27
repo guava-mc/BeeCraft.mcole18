@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="test.java.SingletonTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2018-11-26T03:07:36" hostname="Masons-MBP" time="0.003">
+  <properties/>
+  <testcase name="startTest" classname="test.java.SingletonTest" time="0.002"/>
+  <testcase name="updateTest" classname="test.java.SingletonTest" time="0.0"/>
+  <testcase name="updateWithTicksTest" classname="test.java.SingletonTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
