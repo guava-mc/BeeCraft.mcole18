@@ -1,6 +1,6 @@
-# assignDP.mcole18
+# BeeCraft.mcole18
 
-Hello README
+Hello welcome to BeeCraft the best 1 man 1 week text based StarCraft clone ever there was. ;p
 
 My design patterns:
 
